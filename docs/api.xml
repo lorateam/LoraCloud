@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--url格式：/功能/地点/盒子/传感器-->
+<!--功能：目前有三个功能，一个是baseInfor，另一个是historyData，最后一个是currentData-->
+
+<!--以下演示url的使用方式-->
+<api>
+    <!--baseInfor功能示例-->
+    <action name="获取address表的基本信息">
+        <url>/action/baseInfor/address</url>
+        <request>{null}</request>
+        <response>
+            <!--第一次应该使用此url进行地点基本信息请求地点的id-->
+            [
+                {"agent":"创小管","id":1,"latitude":30.553804,"longitude":103.994509,"name":"i创办公室"},
+                {"agent":"创小管","id":2,"latitude":30.553332,"longitude":103.993753,"name":"开源硬件协会"},
+                {"agent":"创小管","id":3,"latitude":30.553734,"longitude":103.994263,"name":"i创演播厅"},
+                {"agent":"创意工坊负责人","id":4,"latitude":30.553272,"longitude":103.993426,"name":"创意工坊"}
+            ]
+        </response>
+    </action>
+    <action name="获取某一address的boxes表的基本信息">
+        <url>/baseInfor/address/boxes</url>
+        <request>{addressId:1}</request>
+        <response>
+            [{"address_id":1,"id":"0010001","name":"温湿度、光照度采集","tableName":"b_001"},
+            {"address_id":1,"id":"0020002","name":"火焰检测","tableName":"b_002"},
+            {"address_id":1,"id":"0030001","name":"火险告警","tableName":"b_003"}]
+        </response>
+    </action>
+    <!--historyData功能示例-->
+    <action name="获取某一address的boxes的所有历史信息">
+        <url>/historyData/address/boxes</url>
+        <request>{addressId:1}</request>
+        <response>
+            <!--此方式会返回该地点下所有盒子不同传感器过去十天的信息-->
+            {
+                "温湿度、光照强度采集": [
+                        {y: 'time1', temp: 26.66, hum: 26.66},
+                        {y: 'time2', temp: 27.78, hum: 22.94},
+                        {y: 'time3', temp: 49.12, hum: 19.69},
+                        {y: 'time4', temp: 37.67, hum: 35.97},
+                        {y: 'time5', temp: 68.10, hum: 19.14},
+                        {y: 'time6', temp: 56.70, hum: 42.93},
+                        {y: 'time7', temp: 48.20, hum: 379.5},
+                        {y: 'time8', temp: 15.073, hum: 59.67},
+                        {y: 'time9', temp: 10.687, hum: 44.60},
+                        {y: 'time10', temp: 84.32, hum: 57.13}
+                        ]
+                火焰检测:[
+                            {y: 'time1', fire: 0},
+                            {y: 'time2', fire: 0},
+                            {y: 'time3', fire: 0},
+                            {y: 'time4', fire: 0},
+                            {y: 'time5', fire: 0},
+                            {y: 'time6', fire: 0},
+                            {y: 'time7', fire: 0},
+                            {y: 'time8', fire: 0},
+                            {y: 'time9', fire: 0},
+                            {y: 'time10',fire: 0}
+                          ],
+                {name:"火险告警"
+                 ...
+                }
+            }
+        </response>
+    </action>
+    <action name="获取某一address的某一box的历史高低数据">
+        <url>/historyData/address/boxes/sensor</url>
+        <request>{sensorName:co2}</request>
+        <response>
+            [
+            {y:"2018-06-06",highValue:22,lowValue:21},
+            {y:"2018-06-05",highValue:22,lowValue:21},
+            ...
+            ]
+        </response>
+    </action>
+    <!--currentData功能示例-->
+    <action name="获取某一address的所有Boxes的sensor的当前信息">
+        <url>/action/currentInfor/address/boxes</url>
+        <request>addressId:1</request>
+        <response>
+            [
+                {"unit":"ug/m3","name":"甲醛","time":1528280719000,"value":2.2},
+                {"unit":"ppm","name":"二氧化碳含量","time":1528280718000,"value":772.0},
+                {"unit":"%","name":"湿度","time":1528280719000,"value":43.91},
+                {"unit":"ug/m3","name":"PM10含量","time":1528280718000,"value":38.0},
+                {"unit":"ug/m3","name":"PM2.5含量","time":1528280717000,"value":31.0},
+                {"unit":"℃","name":"温度","time":1528280716000,"value":26.2},
+                {"unit":"ug/m3","name":"室内空气质量","time":1528280714000,"value":5.6}
+            ]
+        </response>>
+    </action>
+    <action name="获取某一address的某一传感器当前信息">
+        <url>/action/historyData/address/boxes/sensor</url>
+        <request>{addressId:2,sensorName:fire}</request>
+        <response>
+            {temp:20.6,hum:50.6,lum:133}
+        </response>>
+    </action>
+</api>
+<!--<api>-->
+    <!--<action name="火灾状态">-->
+        <!--<url>/current</url>-->
+        <!--<request>{null}</request>-->
+        <!--<response>{fire:}</response>-->
+    <!--</action>-->
+    <!--<action name="获取历史数据库">-->
+        <!--<url>/history</url>-->
+        <!--<request>{null}</request>-->
+        <!--<response>-->
+            <!--{-->
+                <!--&lt;!&ndash;显示过去十天的信息&ndash;&gt;-->
+                <!--data: [-->
+                    <!--{y: 'time1', temp: 26.66, hum: 26.66},-->
+                    <!--{y: 'time2', temp: 27.78, hum: 22.94},-->
+                    <!--{y: 'time3', temp: 49.12, hum: 19.69},-->
+                    <!--{y: 'time4', temp: 37.67, hum: 35.97},-->
+                    <!--{y: 'time5', temp: 68.10, hum: 19.14},-->
+                    <!--{y: 'time6', temp: 56.70, hum: 42.93},-->
+                    <!--{y: 'time7', temp: 48.20, hum: 379.5},-->
+                    <!--{y: 'time8', temp: 15.073, hum: 59.67},-->
+                    <!--{y: 'time9', temp: 10.687, hum: 44.60},-->
+                    <!--{y: 'time10', temp: 84.32, hum: 57.13}-->
+                <!--]-->
+            <!--}-->
+        <!--</response>-->
+    <!--</action>-->
+<!--</api>-->
