@@ -45,6 +45,7 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 @RequestMapping("")
 class MessageController{
+
     private static Logger logger = Logger.getLogger(MessageController.class);
     @RequestMapping("/action/postdata")
     @ResponseBody
