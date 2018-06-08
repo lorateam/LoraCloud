@@ -8,7 +8,7 @@ export function fetchAddressAllHistoryInfo(data) {
   });
 }
 
-export function fetchAddressOneHistoryInfo(data) {
+export function fetchOneAddressOneHistorySensorInfo(data) {
   return request({
     url: '/historyData/address/boxes/sensor',
     method: 'post',
