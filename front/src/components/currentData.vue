@@ -83,13 +83,13 @@ export default {
     getHistoryInfoForModel(row) {
       fetchOneAddressOneHistorySensorInfo({ addressId: row.addressId, sensorName: row.sensorName })
         .then((response) => {
-          let historyTime = [];
-          let historyHighData = [];
-          let historyLowData = [];
+          const historyTime = [];
+          const historyHighData = [];
+          const historyLowData = [];
           response.data.forEach((element) => {
             historyTime.push(element.time);
           });
-      });
+        });
       this.dialogVisible = true;
     },
     initChart() {
