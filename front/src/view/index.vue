@@ -11,7 +11,6 @@
       <current-data :currentData="infoBox"/>
     </el-col>
     </el-row>
-    <div id="demoChart" style="width: 300px; height: 200px; background-color: red;"></div>
   </div>
 </template>
 

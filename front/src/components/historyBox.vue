@@ -1,6 +1,5 @@
 <template>
   <div id="historyBox" style="width: 300px; height:300px;">
-    <!-- <el-button type="primary" @click="initChart"></el-button> -->
     <div class="et-chart" style="width: 300px; height: 200px; background-color: red;"></div>
   </div>
 </template>

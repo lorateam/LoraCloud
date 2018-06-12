@@ -9,7 +9,6 @@ import dao.DataDao;
 import mapper.AddressMapper;
 import mapper.BoxesMapper;
 import mapper.DataMapper;
-import mapper.SensorsMapper;
 import model.*;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
@@ -17,12 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import util.MybatisSessionFactory;
 import util.SpliceSensorInfo;
 
-import java.io.PrintWriter;
-import java.math.BigDecimal;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -203,7 +199,7 @@ class MessageController{
             JSONObject jsonObject = new JSONObject();
             dHigh = dataHighList.get(i);
             dLow = dataHighList.get(i);
-            jsonObject.put("y",dHigh.getTime());
+            jsonObject.put("time",dHigh.getTime());
             jsonObject.put("highValue",dHigh.getValue());
             jsonObject.put("lowValue", dLow.getValue());
             jsonArray.add(jsonObject);

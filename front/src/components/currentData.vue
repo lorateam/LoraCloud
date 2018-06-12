@@ -42,7 +42,7 @@
               slot="reference"
               type="text"
               size="small">
-              移除
+              历史数据
             </el-button>
 
           </el-popover>
@@ -81,7 +81,15 @@ export default {
   },
   methods: {
     getHistoryInfoForModel(row) {
-      fetchOneAddressOneHistorySensorInfo({ addressId: row.addressId, sensorName: row.sensorName });
+      fetchOneAddressOneHistorySensorInfo({ addressId: row.addressId, sensorName: row.sensorName })
+        .then((response) => {
+          let historyTime = [];
+          let historyHighData = [];
+          let historyLowData = [];
+          response.data.forEach((element) => {
+            historyTime.push(element.time);
+          });
+      });
       this.dialogVisible = true;
     },
     initChart() {
