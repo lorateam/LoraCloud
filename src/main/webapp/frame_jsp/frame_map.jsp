@@ -8,7 +8,6 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
     <title>环境监测</title>
     <link rel="stylesheet" href="https://cache.amap.com/lbs/static/main.css"/>
-    <%--<link rel="stylesheet" type="text/css" href="demo/css/index.css">--%>
     <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.2&key=4e09e15a4affc04339b662d63ab7b3e2"></script>
     <script type="text/javascript" src="demo/js/jquery-3.3.1.js"></script>
 </head>
