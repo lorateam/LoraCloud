@@ -35,7 +35,7 @@
             @after-enter="initChart"
             trigger="click">
 
-            <history-box ref="historyBox" />
+            <history-box ref="historyBox" :historyData="historyData" />
 
             <el-button
               @click.native.prevent="getHistoryInfoForModel(scope.row)"
@@ -62,24 +62,11 @@ export default {
   data() {
     return {
       dialogVisible: false,
-      chart: '',
-      options: {
-        xAxis: {
-          type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        },
-        yAxis: {
-          type: 'value',
-        },
-        series: [{
-          data: [820, 932, 901, 934, 1290, 1330, 1320],
-          type: 'line',
-          smooth: true,
-        }],
-      },
+      historyData: {},
     };
   },
   methods: {
+    // 获取历史数据
     getHistoryInfoForModel(row) {
       fetchOneAddressOneHistorySensorInfo({ addressId: row.addressId, sensorName: row.sensorName })
         .then((response) => {
@@ -87,13 +74,17 @@ export default {
           const historyHighData = [];
           const historyLowData = [];
           response.data.forEach((element) => {
+            console.log(element);
             historyTime.push(element.time);
+            historyHighData.push(element.highValue);
+            historyLowData.push(element.lowValue);
           });
+          this.historyData.historyTime = historyTime;
+          this.historyData.historyHighData = historyHighData;
+          this.historyData.historyLowData = historyLowData;
+          this.$refs.historyBox.initChart();
         });
       this.dialogVisible = true;
-    },
-    initChart() {
-      this.$refs.historyBox.initChart();
     },
   },
   components: {

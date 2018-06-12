@@ -1,6 +1,5 @@
 package model;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 public class Data {
@@ -12,7 +11,7 @@ public class Data {
 
     private Integer address_id;
 
-    private Data time;
+    private Date time;
 
     private String uuid;
 
@@ -48,11 +47,11 @@ public class Data {
         this.address_id = address_id;
     }
 
-    public Data getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(Data time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 

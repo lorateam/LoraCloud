@@ -1,6 +1,6 @@
 <template>
-  <div id="historyBox" style="width: 300px; height:300px;">
-    <div class="et-chart" style="width: 300px; height: 200px; background-color: red;"></div>
+  <div id="historyBox" style="width: 400px; height:400px;">
+    <div class="et-chart" style="width: 400px; height: 400px;"></div>
   </div>
 </template>
 
@@ -9,32 +9,37 @@ import echarts from 'echarts';
 
 export default {
   name: 'historyBox',
-  props: ['gridData'],
+  props: ['historyData'],
   data() {
     return {
       chart: '',
-      options: {
+    };
+  },
+  methods: {
+    initChart() {
+      const that = this;
+      const options = {
         xAxis: {
           type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          data: that.historyData.historyTime,
         },
         yAxis: {
           type: 'value',
         },
         series: [{
-          data: [820, 932, 901, 934, 1290, 1330, 1320],
+          data: that.historyData.historyHighData,
+          type: 'line',
+          smooth: true,
+        },{
+          data: that.historyData.historyLowData,
           type: 'line',
           smooth: true,
         }],
-      },
-    };
-  },
-  methods: {
-    initChart() {
+      };
       const divs = document.getElementsByClassName('et-chart');
       const index = divs.length - 1;
       this.chart = echarts.init(divs[index]);
-      this.chart.setOption(this.options);
+      this.chart.setOption(options);
     },
   },
 };

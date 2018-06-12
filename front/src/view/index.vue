@@ -11,6 +11,10 @@
       <current-data :currentData="infoBox"/>
     </el-col>
     </el-row>
+    <el-row :gutter="20">
+      <el-col :span="6"></el-col>
+      <el-col :span="18"></el-col>
+    </el-row>
   </div>
 </template>
 
@@ -37,7 +41,7 @@ export default {
     };
   },
   mounted() {
-    // this.getAddressBaseInfo();
+    this.getAddressBaseInfo();
   },
   methods: {
     // 获取所有地点的基本信息

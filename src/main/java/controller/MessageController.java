@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import util.MybatisSessionFactory;
 import util.SpliceSensorInfo;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -181,6 +183,8 @@ class MessageController{
         SqlSession sqlSession = MybatisSessionFactory.getSession();
         logger.debug("打开sqlSession");
         //开始执行
+        //格式化日期
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Data data = new Data();
         data.setAddress_id(addressId);
         data.setSensor_name(sensorName);
@@ -188,7 +192,7 @@ class MessageController{
         //创建Data对象储存过去十天每天的最高历史数据
         List<Data> dataHighList = dataMapper.getOneAddressOneHistoryHighSensorInfo(data);
         //创建Data对象储存过去十天每天的最低历史数据
-        List<Data> dataLow = dataMapper.getOneAddressOneHistoryLowSensorInfo(data);
+        List<Data> dataLowList = dataMapper.getOneAddressOneHistoryLowSensorInfo(data);
         //创建Data对象组合最低、最高历史信息
         Data dHigh = new Data();
         Data dLow = new Data();
@@ -198,12 +202,13 @@ class MessageController{
         {
             JSONObject jsonObject = new JSONObject();
             dHigh = dataHighList.get(i);
-            dLow = dataHighList.get(i);
-            jsonObject.put("time",dHigh.getTime());
+            dLow = dataLowList.get(i);
+            jsonObject.put("time",sdf.format(dHigh.getTime()));
             jsonObject.put("highValue",dHigh.getValue());
             jsonObject.put("lowValue", dLow.getValue());
             jsonArray.add(jsonObject);
         }
+        System.out.println(jsonArray);
         sqlSession.close();
         return jsonArray;
     }
