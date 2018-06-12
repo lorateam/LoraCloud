@@ -1,7 +1,6 @@
 <template>
-  <div id="historyBox" :style="{width: '300px', height:'300px'}">
-    <el-button type="primary" @click="initChart()">Click</el-button>
-    <div id="laji" style="width: 300px; height: 200px; background-color: red;"></div>
+  <div id="historyBox" style="width: 500px; height: 400px;">
+    <div class="qin"></div>
   </div>
 </template>
 
@@ -10,10 +9,10 @@ import echarts from 'echarts';
 
 export default {
   name: 'historyBox',
-  props: ['gridData'],
-  // mounted() {
-  //   this.initChart();
-  // },
+  props: ['historyData'],
+  mounted() {
+    this.initChart();
+  },
   data() {
     return {
       chart: '',
@@ -35,10 +34,11 @@ export default {
   },
   methods: {
     initChart(){
-      this.chart = echarts.init(document.getElementById('laji'));
-      console.log(this.chart);
-      console.log('initing');
+      setTimeout(()=>{
+      const getDivsByClass = document.getElementsByClassName('qin');
+      this.chart = echarts.init(getDivsByClass[getDivsByClass.length-1]);
       this.chart.setOption(this.options);
+      },0)
     },
   },
 };

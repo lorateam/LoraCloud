@@ -29,10 +29,7 @@
       width="100%">
       <template slot-scope="scope">
 
-        <el-popover
-          placement="left"
-          width="500"
-          trigger="click">
+        <el-popover placement="left" width="500" trigger="click">
 
           <history-box />
 
@@ -41,13 +38,12 @@
             slot="reference"
             type="text"
             size="small">
-            移除
+            历史数据
           </el-button>
 
         </el-popover>
       </template>
     </el-table-column>
-    
   </el-table>
   </div>
 </template>
@@ -62,6 +58,7 @@ export default {
   data() {
     return {
       dialogVisible: false,
+      historyData: {},
     };
   },
   methods: {
@@ -72,7 +69,12 @@ export default {
     getHistoryInfoForModel(row) {
       fetchOneAddressOneHistorySensorInfo({ addressId: row.addressId, sensorName: row.sensorName })
         .then((response) => {
-          console.log(response);
+          let historyTime = [];
+          let historyHighData = [];
+          let historyLowData = [];
+          response.data.forEach(element => {
+            historyTime.push(element.time);
+          });
       });
       this.dialogVisible = true;
     },
