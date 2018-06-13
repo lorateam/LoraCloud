@@ -4,7 +4,7 @@ export function fetchOneAddressOneCurrentSensorInfo(data) {
   const { addressId, sensorName } = data;
   return request({
     url: `/currentInfo/address/boxes/sensor?addressId=${addressId}&sensorName=${sensorName}`,
-    method: 'get',
+    method: 'post',
   });
 }
 
