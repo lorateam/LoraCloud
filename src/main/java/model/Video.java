@@ -3,7 +3,7 @@ package model;
 public class Video {
     private Integer id;
 
-    private Integer adress_id;
+    private Integer address_id;
 
     private String detail;
 
@@ -17,12 +17,12 @@ public class Video {
         this.id = id;
     }
 
-    public Integer getAdress_id() {
-        return adress_id;
+    public Integer getAddress_id() {
+        return address_id;
     }
 
-    public void setAdress_id(Integer adress_id) {
-        this.adress_id = adress_id;
+    public void setAddress_id(Integer address_id) {
+        this.address_id = address_id;
     }
 
     public String getDetail() {

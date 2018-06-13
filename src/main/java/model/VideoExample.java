@@ -164,63 +164,63 @@ public class VideoExample {
             return (Criteria) this;
         }
 
-        public Criteria andAdress_idIsNull() {
-            addCriterion("adress_id is null");
+        public Criteria andAddress_idIsNull() {
+            addCriterion("address_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andAdress_idIsNotNull() {
-            addCriterion("adress_id is not null");
+        public Criteria andAddress_idIsNotNull() {
+            addCriterion("address_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAdress_idEqualTo(Integer value) {
-            addCriterion("adress_id =", value, "adress_id");
+        public Criteria andAddress_idEqualTo(Integer value) {
+            addCriterion("address_id =", value, "address_id");
             return (Criteria) this;
         }
 
-        public Criteria andAdress_idNotEqualTo(Integer value) {
-            addCriterion("adress_id <>", value, "adress_id");
+        public Criteria andAddress_idNotEqualTo(Integer value) {
+            addCriterion("address_id <>", value, "address_id");
             return (Criteria) this;
         }
 
-        public Criteria andAdress_idGreaterThan(Integer value) {
-            addCriterion("adress_id >", value, "adress_id");
+        public Criteria andAddress_idGreaterThan(Integer value) {
+            addCriterion("address_id >", value, "address_id");
             return (Criteria) this;
         }
 
-        public Criteria andAdress_idGreaterThanOrEqualTo(Integer value) {
-            addCriterion("adress_id >=", value, "adress_id");
+        public Criteria andAddress_idGreaterThanOrEqualTo(Integer value) {
+            addCriterion("address_id >=", value, "address_id");
             return (Criteria) this;
         }
 
-        public Criteria andAdress_idLessThan(Integer value) {
-            addCriterion("adress_id <", value, "adress_id");
+        public Criteria andAddress_idLessThan(Integer value) {
+            addCriterion("address_id <", value, "address_id");
             return (Criteria) this;
         }
 
-        public Criteria andAdress_idLessThanOrEqualTo(Integer value) {
-            addCriterion("adress_id <=", value, "adress_id");
+        public Criteria andAddress_idLessThanOrEqualTo(Integer value) {
+            addCriterion("address_id <=", value, "address_id");
             return (Criteria) this;
         }
 
-        public Criteria andAdress_idIn(List<Integer> values) {
-            addCriterion("adress_id in", values, "adress_id");
+        public Criteria andAddress_idIn(List<Integer> values) {
+            addCriterion("address_id in", values, "address_id");
             return (Criteria) this;
         }
 
-        public Criteria andAdress_idNotIn(List<Integer> values) {
-            addCriterion("adress_id not in", values, "adress_id");
+        public Criteria andAddress_idNotIn(List<Integer> values) {
+            addCriterion("address_id not in", values, "address_id");
             return (Criteria) this;
         }
 
-        public Criteria andAdress_idBetween(Integer value1, Integer value2) {
-            addCriterion("adress_id between", value1, value2, "adress_id");
+        public Criteria andAddress_idBetween(Integer value1, Integer value2) {
+            addCriterion("address_id between", value1, value2, "address_id");
             return (Criteria) this;
         }
 
-        public Criteria andAdress_idNotBetween(Integer value1, Integer value2) {
-            addCriterion("adress_id not between", value1, value2, "adress_id");
+        public Criteria andAddress_idNotBetween(Integer value1, Integer value2) {
+            addCriterion("address_id not between", value1, value2, "address_id");
             return (Criteria) this;
         }
 

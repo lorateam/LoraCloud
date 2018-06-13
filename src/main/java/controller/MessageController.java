@@ -166,17 +166,6 @@ class MessageController{
         return jsonObject;
     }
 
-    //获取某一个地点的所有传感器过去十天的历史数据
-//    @RequestMapping("/action/historyData/address/boxes")
-//    @ResponseBody
-//    public void getOneAddressAllHistorySensorInfo(HttpServletRequest request,HttpServletResponse response) throws Exception{
-//        //-------------打开sqlSession
-//        SqlSession sqlSession = MybatisSessionFactory.getSession();
-//        logger.debug("打开sqlSession");
-//        //-------------开始执行
-//
-//    }
-
     //获取某一个地点的某一个传感器过去十天的历史数据
     @RequestMapping(value = "/action/historyData/address/boxes/sensor",produces = "text/html;charset=UTF-8")
     @ResponseBody
@@ -223,9 +212,7 @@ class MessageController{
         SqlSession sqlSession = MybatisSessionFactory.getSession();
         logger.debug("打开sqlSession");
         VideoMapper videoMapper = sqlSession.getMapper(VideoMapper.class);
-        VideoExample videoExample = new VideoExample();
-        videoExample.createCriteria().andAdress_idEqualTo(addressId);
-        return videoMapper.selectByExample(videoExample);
+        return videoMapper.selectByAddress(addressId);
     }
 
 }
