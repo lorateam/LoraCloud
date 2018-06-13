@@ -6,7 +6,7 @@
 <api>
     <!--baseInfor功能示例-->
     <action name="获取address表的基本信息">
-        <url>/action/baseInfor/address</url>
+        <url>/action/baseInfo/address</url>
         <request>{null}</request>
         <response>
             <!--第一次应该使用此url进行地点基本信息请求地点的id-->
@@ -19,7 +19,7 @@
         </response>
     </action>
     <action name="获取某一address的boxes表的基本信息">
-        <url>/baseInfor/address/boxes</url>
+        <url>/action/baseInfo/address/boxes</url>
         <request>{addressId:1}</request>
         <response>
             [{"address_id":1,"id":"0010001","name":"温湿度、光照度采集","tableName":"b_001"},
@@ -29,7 +29,7 @@
     </action>
     <!--historyData功能示例-->
     <action name="获取某一address的boxes的所有历史信息">
-        <url>/historyData/address/boxes</url>
+        <url>/action/historyData/address/boxes</url>
         <request>{addressId:1}</request>
         <response>
             <!--此方式会返回该地点下所有盒子不同传感器过去十天的信息-->
@@ -65,7 +65,7 @@
         </response>
     </action>
     <action name="获取某一address的某一box的历史高低数据">
-        <url>/historyData/address/boxes/sensor</url>
+        <url>/action/historyData/address/boxes/sensor</url>
         <request>{sensorName:co2}</request>
         <response>
             [
@@ -92,7 +92,7 @@
         </response>>
     </action>
     <action name="获取某一address的某一传感器当前信息">
-        <url>/action/historyData/address/boxes/sensor</url>
+        <url>/action/currentInfo/address/boxes/sensor</url>
         <request>{addressId:2,sensorName:fire}</request>
         <response>
             {temp:20.6,hum:50.6,lum:133}
