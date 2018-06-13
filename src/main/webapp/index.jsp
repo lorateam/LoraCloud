@@ -32,9 +32,15 @@
                 <!-- Left col右边第一列 -->
                 <section class="col-lg-6 connectedSortable">
                     <!--这个地图是嵌在日历表面的，include的日历不要删，删了的话地图就不能显示了-->
+<<<<<<< HEAD
+                    <%@include file="/frame_jsp/frame_map.jsp"%>
+                    <%--<%@include file="/frame_jsp/frame_todolist.jsp"%>--%>
+                    <%--<%@include file="/frame_jsp/frame_linechart.jsp"%>--%>
+=======
                     <%@include file="frame_jsp/frame_map.jsp"%>
                     <%--<%@include file="frame_jsp/frame_todolist.jsp"%>--%>
                     <%--<%@include file="frame_jsp/frame_linechart.jsp"%>--%>
+>>>>>>> 869af81588bc240029c3ef8bef800e16f76a66ed
                 </section>
                 <!-- Right col 右边内容第二列-->
                 <section class="col-lg-6 connectedSortable">
@@ -43,16 +49,26 @@
                             <%--rtsp://admin:ckkjb208@192.168.1.182:554/MPEG-4/ch1/main/av_stream--%>
                             <div class="video">
                                 <div>
+<<<<<<< HEAD
+                                    <input id="url1" value="rtsp://admin:ckkjb208@192.168.1.182:554/MPEG-4/ch1/main/av_stream" size="36">
+                                    <button id="set_new_url" onclick = "set_url('url1','video1')">Set</button>
+=======
                                     <input id="url1" value="rtsp://admin:1234abcd@192.168.199.157:554/MPEG-4/ch1/main/av_stream" size="36">
                                     <button id="set_new_url" onclick = "set_url(new_url,'url1','video1')">Set</button>
+>>>>>>> 869af81588bc240029c3ef8bef800e16f76a66ed
                                 </div>
                                 <video id="video1" controls autoplay></video>
                             </div>
                             <div class="video">
                                 <div>
+<<<<<<< HEAD
+                                    <input id="url2" value="rtsp://admin:ckkjb208@192.168.199.187:554/MPEG-4/ch1/main/av_stream" size="36">
+                                    <button id="set_new_ur" onclick = "set_url('url2','video2')">Set</button>
+=======
                                     fd
                                     <input id="url2" value="rtsp://admin:ckkjb208@192.168.199.199:554/MPEG-4/ch1/main/av_stream" size="36">
                                     <button id="set_new_ur" onclick = "set_url(new_url,'url2','video2')">Set</button>
+>>>>>>> 869af81588bc240029c3ef8bef800e16f76a66ed
                                 </div>
                                 <video id="video2" controls autoplay></video>
                             </div>
@@ -91,13 +107,12 @@
 </body>
 <script src="rtsp/free.player.1.8.js" ></script>
 <script>
-    var new_url = " ";
-    function set_url(url,input_id,player_id)
+    function set_url(input_id,player_id)
     {
         var text = document.getElementById(input_id).value;
-        url = text;
+        // url = text;
         var player = document.getElementById(player_id);
-        player.src = url;
+        player.src = text;
         Streamedian.player(player_id, {socket:"ws://192.168.199.179:8081/ws"});
     }
 //TODO:下面的方式特别指出了address，需要轮询所有的address
@@ -108,7 +123,7 @@
             var circle = new AMap.Circle({
                 center: new AMap.LngLat("103.993753", "30.553332"),// 圆心位置
                 radius: 18, //半径
-                strokeColor: "#F33", //线颜色
+                strokeColor: "#F33", //线颜色git
                 strokeOpacity: 1, //线透明度
                 strokeWeight: 3, //线粗细度
                 fillColor: "#ee2200", //填充颜色
