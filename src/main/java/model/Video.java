@@ -2,8 +2,11 @@ package model;
 
 public class Video {
     private Integer id;
+
     private Integer address_id;
+
     private String detail;
+
     private String url;
 
     public Integer getId() {
@@ -27,7 +30,7 @@ public class Video {
     }
 
     public void setDetail(String detail) {
-        this.detail = detail;
+        this.detail = detail == null ? null : detail.trim();
     }
 
     public String getUrl() {
@@ -35,6 +38,6 @@ public class Video {
     }
 
     public void setUrl(String url) {
-        this.url = url;
+        this.url = url == null ? null : url.trim();
     }
 }
