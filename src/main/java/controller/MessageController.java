@@ -67,7 +67,6 @@ class MessageController{
         data.setAddress_id(boxes.getAddress_id());
         Map<String, Float> dataMap = JSONObject.parseObject(sensorInfor, new TypeReference<Map<String, Float>>() {
         });
-
         String error = "";
         for (Map.Entry<String, Float> entry : dataMap.entrySet()) {
             data.setSensor_name(entry.getKey());
@@ -76,7 +75,8 @@ class MessageController{
             try {
                 dataDao.dataMapper.insert(data);
             }catch (Exception e) {
-                error += entry.getKey() + " undefined!\n";
+                return e.toString();
+//                error += entry.getKey() + " undefined!\n";
             }
         }
         if(error.equals(""))
