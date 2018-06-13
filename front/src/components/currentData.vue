@@ -32,7 +32,6 @@
           <el-popover
             placement="left"
             width="500"
-            @after-enter="initChart"
             trigger="click">
 
             <history-box ref="historyBox" :historyData="historyData" />

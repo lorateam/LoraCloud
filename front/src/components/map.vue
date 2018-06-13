@@ -62,7 +62,7 @@ export default {
               }
             }
             // 向父组件传递信息
-            that.$emit('getCurrentInfo', infoBox);
+            that.$emit('getCurrentInfo', {"infoBox":infoBox,"IMap":that.gaoDeMap});
             const infoWindow = new AMap.InfoWindow({
               content: info.join('<br/>'), // 使用默认信息窗体框样式，显示信息内容.</br>是为了使每一次push的文字分开
               offset: new AMap.Pixel(0, -30), // 设置弹出窗口离marker的距离
