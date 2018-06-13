@@ -74,7 +74,7 @@ export default {
           const historyHighData = [];
           const historyLowData = [];
           response.data.forEach((element) => {
-            console.log(element);
+            // console.log(element);
             historyTime.push(element.time);
             historyHighData.push(element.highValue);
             historyLowData.push(element.lowValue);

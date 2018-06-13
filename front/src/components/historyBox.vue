@@ -30,7 +30,7 @@ export default {
           data: that.historyData.historyHighData,
           type: 'line',
           smooth: true,
-        },{
+        }, {
           data: that.historyData.historyLowData,
           type: 'line',
           smooth: true,

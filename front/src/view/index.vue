@@ -67,10 +67,13 @@ export default {
           fetchOneAddressOneCurrentSensorInfo({ addressId: a.id, sensorName: 'fire' })
             .then((response) => {
               if (response.data.value === 0) {
-                that.info.date = that.getNowFormatDate();
-                that.info.address = a.name;
-                that.info.event = '发生火灾';
-                that.tableData4.push(that.info);
+                const info = {
+                  date: that.getNowFormatDate(),
+                  address: a.name,
+                  event: '发生火灾',
+                };
+                that.tableData4.push(info);
+                console.log(...that.tableData4);
               }
             });
         });
