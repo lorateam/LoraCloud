@@ -54,7 +54,7 @@
         <!--<table schema="lora_r" tableName="boxes">-->
             <!--<property name="useActualColumnNames" value="true"/>-->
         <!--</table>-->
-        <table schema="lora_r" tableName="data">
+        <table schema="lora_r" tableName="video">
             <property name="useActualColumnNames" value="true"/>
         </table>
         <!--<table schema="lora_r" tableName="sensors">-->

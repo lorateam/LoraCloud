@@ -51,7 +51,7 @@
                             <div class="video">
                                 <div>
                                     fd
-                                    <input id="url2" value="rtsp://admin:1234abcd@192.168.199.180:554/MPEG-4/ch1/main/av_stream" size="36">
+                                    <input id="url2" value="rtsp://admin:ckkjb208@192.168.199.199:554/MPEG-4/ch1/main/av_stream" size="36">
                                     <button id="set_new_ur" onclick = "set_url(new_url,'url2','video2')">Set</button>
                                 </div>
                                 <video id="video2" controls autoplay></video>
