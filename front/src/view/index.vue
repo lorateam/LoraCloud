@@ -12,8 +12,10 @@
     </el-col>
     </el-row>
     <el-row :gutter="20">
-      <el-col :span="6"></el-col>
-      <el-col :span="18"></el-col>
+      <el-col :span="2" style="height: 43vh;background-color: red; margin-right: 18px;"></el-col>
+      <el-col :span="7" style="height: 43vh;background-color: red; margin-right: 18px;"></el-col>
+      <el-col :span="7" style="height: 43vh;background-color: red; margin-right: 18px;"></el-col>
+      <el-col :span="7" style="height: 43vh;background-color: red;"></el-col>
     </el-row>
   </div>
 </template>
@@ -64,7 +66,7 @@ export default {
           // 获取某一个地点的火灾报警器情况
           fetchOneAddressOneCurrentSensorInfo({ addressId: a.id, sensorName: 'fire' })
             .then((response) => {
-              if (response.data.value === 0.0) {
+              if (response.data.value === 0) {
                 that.info.date = that.getNowFormatDate();
                 that.info.address = a.name;
                 that.info.event = '发生火灾';
