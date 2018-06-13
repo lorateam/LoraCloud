@@ -79,14 +79,14 @@ export default {
           // 获取某一个地点的火灾报警器情况
           fetchOneAddressOneCurrentSensorInfo({ addressId: a.id, sensorName: 'fire' })
             .then((response) => {
-              if (response.data.value === 0) {
+              if (response.data.value === 1) {
                 const info = {
                   date: that.getNowFormatDate(),
                   address: a.name,
                   event: '发生火灾',
                 };
                 that.tableData4.push(info);
-                console.log(...that.tableData4);
+                console.log(that.tableData4);
               }
             });
         });
