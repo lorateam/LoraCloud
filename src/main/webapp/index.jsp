@@ -106,7 +106,7 @@
             var circle = new AMap.Circle({
                 center: new AMap.LngLat("103.993753", "30.553332"),// 圆心位置
                 radius: 18, //半径
-                strokeColor: "#F33", //线颜色
+                strokeColor: "#F33", //线颜色git
                 strokeOpacity: 1, //线透明度
                 strokeWeight: 3, //线粗细度
                 fillColor: "#ee2200", //填充颜色
