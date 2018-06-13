@@ -9,6 +9,7 @@ import dao.DataDao;
 import mapper.AddressMapper;
 import mapper.BoxesMapper;
 import mapper.DataMapper;
+import mapper.VideoMapper;
 import model.*;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
@@ -214,24 +215,17 @@ class MessageController{
         return jsonArray;
     }
 
-    //阿何原来的函数，现已弃用
-//    private Map getFormData(HttpServletRequest request) throws Exception{
-//        Enumeration enu=request.getParameterNames();
-//        Map postData = new HashMap();
-//        while(enu.hasMoreElements()){
-//            String paraName=(String)enu.nextElement();
-//            try{
-//                //json格式字符串数据
-//                postData = JSONObject.parseObject(paraName);
-//                if(postData != null && request.getParameter(paraName)==null)
-//                    break;
-//            }catch (Exception e){
-//                //表单格式数据
-//                postData.put(paraName, request.getParameter(paraName));
-//                logger.info(paraName+":"+ request.getParameter(paraName));
-//            }
-//        }
-//        return postData;
-//    }
+    //获取某一个地点的某一个传感器过去十天的历史数据
+    @RequestMapping(value = "/action/video",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public List<Video> getVideo(@RequestParam(value = "addressId") int addressId) throws Exception{
+        //-------------打开sqlSession
+        SqlSession sqlSession = MybatisSessionFactory.getSession();
+        logger.debug("打开sqlSession");
+        VideoMapper videoMapper = sqlSession.getMapper(VideoMapper.class);
+        VideoExample videoExample = new VideoExample();
+        videoExample.createCriteria().andAdress_idEqualTo(addressId);
+        return videoMapper.selectByExample(videoExample);
+    }
 
 }

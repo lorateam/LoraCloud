@@ -21,5 +21,6 @@
         <mapper resource="mapper/BoxesMapper.xml"/>
         <mapper resource="mapper/DataMapper.xml"/>
         <mapper resource="mapper/SensorsMapper.xml"/>
+        <mapper resource="mapper/VideoMapper.xml"/>
     </mappers>
 </configuration>
