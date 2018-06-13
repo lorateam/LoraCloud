@@ -204,7 +204,7 @@ class MessageController{
         return jsonArray;
     }
 
-    //获取某一个地点的某一个传感器过去十天的历史数据
+    //获取某一个地点的所有监控信息
     @RequestMapping(value = "/action/video",produces = "text/html;charset=UTF-8")
     @ResponseBody
     public List<Video> getVideo(@RequestParam(value = "addressId") int addressId) throws Exception{

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script type="text/javascript" src="../utils/player.js"></script>
+</head>
+<body>
+  <div class="video">
+    <div>
+        <input id="url1" value="rtsp://admin:ckkjb208@192.168.199.199:554/MPEG-4/ch1/main/av_stream" size="36">
+        <button id="set_new_url" onclick = "set_url('url1','video1')">Set</button>
+
+    </div>
+    <video id="video1" controls autoplay></video>
+</div>
+</body>
+<script>
+  function set_url(input_id,player_id)
+  {
+      var text = document.getElementById(input_id).value;
+      var player = document.getElementById(player_id);
+      player.src = text;
+      Streamedian.player(player_id, {socket:"ws://192.168.199.179:8081/ws"});
+  }
+</script>
+</html>

@@ -12,39 +12,34 @@
       </el-col>
     </el-row>
     <el-row :gutter="20">
-      <el-col :span="2" style="height: 43vh;background-color: red; margin-right: 18px;"></el-col>
-      <el-col :span="7" style="height: 43vh;background-color: red; margin-right: 18px;">
+      <el-col :span="2" style="height: 43vh;background-color: #bdcadb; margin-right: 30px;font-size: 60px;">
+        <span>视<br>频<br>监<br>控</span>
       </el-col>
-      <el-col :span="7" style="height: 43vh;background-color: red; margin-right: 18px;"></el-col>
-      <el-col :span="7" style="height: 43vh;background-color: red;"></el-col>
+      <el-col :span="7" style="height: 43vh; margin-right: 18px;">
+        <video id="video1" controls autoplay style="width: 100%; height: 100%"></video>
+      </el-col>
+      <el-col :span="7" style="height: 43vh;margin-right: 18px;">
+        <video id="video2" controls autoplay style="width: 100%; height: 100%"></video>
+      </el-col>
+      <el-col :span="7" style="height: 43vh;">
+        <video id="video3" controls autoplay style="width: 100%; height: 100%"></video>
+      </el-col>
     </el-row>
-    <div class="video">
-      <div>
-          <input id="stream_url" value="rtsp://admin:ckkjb208@192.168.199.199:554/MPEG-4/ch1/main/av_stream" size="36">
-          <button id="set_new_url" @click="set_url(' ')">Set</button>
-      </div>
-      <video id="test_video" controls autoplay></video>
-    </div>
   </div>
 </template>
 
 <script>
 import { fetchAllAddressInfo } from "@/api/baseInfo";
 import { fetchOneAddressOneCurrentSensorInfo } from "@/api/currentInfo";
+import { fetchOneAddressVideo } from "@/api/video"
 import infoBox from "@/components/infoBox";
 import gaoDeMap from "@/components/map";
 import currentData from "@/components/currentData";
-import "@/utils/player";
-
-// const p = Streamedian.player('test_video', { socket: "ws://192.168.199.179:8081/ws" })
 
 export default {
   name: "name",
   data() {
     return {
-      //某一个摄像头的参数，后续需要删除
-      url2: "url2",
-      video2: "video2",
       infoBox: [], // 右侧实时信息栏
       tableData4: [], // 信息显示窗口的信息
       addressInfo: [], // 地点基本信息
@@ -59,6 +54,7 @@ export default {
   },
   mounted() {
     this.getAddressBaseInfo();
+    this.initVideo();
   },
   methods: {
     // 获取所有地点的基本信息
@@ -90,6 +86,16 @@ export default {
                 event: "发生火灾"
               };
               that.tableData4.push(info);
+              var circle = new AMap.Circle({
+                center: new AMap.LngLat("103.993753", "30.553332"),// 圆心位置
+                radius: 18, //半径
+                strokeColor: "#F33", //线颜色git
+                strokeOpacity: 1, //线透明度
+                strokeWeight: 3, //线粗细度
+                fillColor: "#ee2200", //填充颜色
+                fillOpacity: 0.35//填充透明度
+            });
+              circle.set(that.IMap);  
             }
           });
         });
@@ -100,12 +106,26 @@ export default {
       this.infoBox = data.infoBox;
       this.IMap = data.IMap;
     },
-    //获取map地址
-    set_url(url) {
-      var text = document.getElementById('stream_url').value;
-      url = text;
-      test_video.src = url;
-      Streamedian.player('test_video', { socket: "ws://192.168.199.179:8081/ws" });
+    // 显示视频
+    initVideo() {
+      const baiduUrl1 = "rtsp://admin:ckkjb208@192.168.199.199:554/MPEG-4/ch1/main/av_stream";
+      const baiduUrl2 = "rtsp://admin:ckkjb208@192.168.199.215:554/MPEG-4/ch1/main/av_stream";
+      const baiduUrl3 = "rtsp://admin:ckkjb208@192.168.199.201:554/MPEG-4/ch1/main/av_stream";
+      const videoDiv1 = document.getElementById('video1');
+      const videoDiv2 = document.getElementById('video2');
+      const videoDiv3 = document.getElementById('video3');
+      videoDiv1.src = baiduUrl1;
+      videoDiv2.src = baiduUrl2;
+      videoDiv3.src = baiduUrl3;
+      Streamedian.player('video1', {
+        socket: 'ws://192.168.199.179:8081/ws/',
+      });
+      Streamedian.player('video2', {
+        socket: 'ws://192.168.199.179:8081/ws/',
+      });
+      Streamedian.player('video3', {
+        socket: 'ws://192.168.199.179:8081/ws/',
+      });
     },
   },
   components: {
@@ -121,13 +141,13 @@ export default {
   height: 50vh;
 }
 .el-row {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 .el-col {
   border-radius: 4px;
 }
 .bg-purple-dark {
-  background: #99a9bf;
+  background: #bdcadb;
 }
 .bg-purple {
   background: #d3dce6;
