@@ -109,6 +109,7 @@ class MessageController{
         //-------------开始执行
         BoxesMapper boxesMapper = sqlSession.getMapper(BoxesMapper.class);
         BoxesExample boxesExample = new BoxesExample();
+        boxesExample.createCriteria().andAddress_idEqualTo(addressId);
         List<Boxes> boxesList = boxesMapper.selectByExample(boxesExample);
         JSONArray jsonArray = new JSONArray();
         jsonArray.addAll(boxesList);
