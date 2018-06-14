@@ -36,7 +36,7 @@ import javax.servlet.http.HttpServletResponse;
 * 数据库操作:简单查询,直接通过dao调用*注解mapper*方法,复杂查询在dao内使用example(尽量不要写xml)
 *
 * 配置事务自动提交,修复数据插入失败问题(已完成)
-*
+*d
 * 日志具体内容和格式进一步优化
 *
 * 今晚没时间能做到要用example的,明天再搞了

@@ -79,7 +79,7 @@ export default {
             addressId: a.id,
             sensorName: "fire"
           }).then(response => {
-            if (response.data.value === 0) {
+            if (response.data.value === 1) {
               const info = {
                 date: that.getNowFormatDate(),
                 address: a.name,
@@ -95,7 +95,7 @@ export default {
                 fillColor: "#ee2200", //填充颜色
                 fillOpacity: 0.35//填充透明度
             });
-              circle.set(that.IMap);  
+              circle.set(that.IMap);
             }
           });
         });
