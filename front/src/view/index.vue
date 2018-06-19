@@ -108,9 +108,9 @@ export default {
     },
     // 显示视频
     initVideo() {
-      const baiduUrl1 = "rtsp://admin:ckkjb208@192.168.199.199:554/MPEG-4/ch1/main/av_stream";
-      const baiduUrl2 = "rtsp://admin:ckkjb208@192.168.199.215:554/MPEG-4/ch1/main/av_stream";
-      const baiduUrl3 = "rtsp://admin:ckkjb208@192.168.199.201:554/MPEG-4/ch1/main/av_stream";
+      const baiduUrl1 = "rtsp://admin:ckkjb208@192.168.199.59:554/MPEG-4/ch1/main/av_stream";
+      const baiduUrl2 = "rtsp://admin:ckkjb208@192.168.199.54:554/MPEG-4/ch1/main/av_stream";
+      const baiduUrl3 = "rtsp://admin:ckkjb208@192.168.199.60:554/MPEG-4/ch1/main/av_stream";
       const videoDiv1 = document.getElementById('video1');
       const videoDiv2 = document.getElementById('video2');
       const videoDiv3 = document.getElementById('video3');
@@ -118,13 +118,13 @@ export default {
       videoDiv2.src = baiduUrl2;
       videoDiv3.src = baiduUrl3;
       Streamedian.player('video1', {
-        socket: 'ws://192.168.199.179:8081/ws/',
+        socket: 'ws://192.168.199.155:8081/ws/',
       });
       Streamedian.player('video2', {
-        socket: 'ws://192.168.199.179:8081/ws/',
+        socket: 'ws://192.168.199.155:8081/ws/',
       });
       Streamedian.player('video3', {
-        socket: 'ws://192.168.199.179:8081/ws/',
+        socket: 'ws://192.168.199.155:8081/ws/',
       });
     },
   },

@@ -1,9 +1,0 @@
-.idea
-*.iml
-target
-logs
-.classpath
-.project
-classpath
-front\node_modules
-.settings

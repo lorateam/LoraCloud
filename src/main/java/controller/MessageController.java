@@ -214,5 +214,4 @@ class MessageController{
         VideoMapper videoMapper = sqlSession.getMapper(VideoMapper.class);
         return videoMapper.selectByAddress(addressId);
     }
-
 }
