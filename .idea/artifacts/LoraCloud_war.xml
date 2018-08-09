@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="LoraCloud:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="LoraCloud.war">
-      <element id="artifact" artifact-name="LoraCloud:war exploded" />
-    </root>
-  </artifact>
-</component>

@@ -4,6 +4,8 @@ import java.util.List;
 import model.Sensors;
 import model.SensorsExample;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Service;
 
 public interface SensorsMapper {
     long countByExample(SensorsExample example);
@@ -21,6 +23,9 @@ public interface SensorsMapper {
     Sensors selectByPrimaryKey(Integer id);
 
     Sensors selectBySensorName(String sensorName);
+
+    @Select("select * from sensors")
+    List<Sensors> listSensors();
 
     int updateByExampleSelective(@Param("record") Sensors record, @Param("example") SensorsExample example);
 

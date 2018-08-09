@@ -9,8 +9,5 @@
         <module name="LoraCloud" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="LoraCloud" target="1.7" />
-    </bytecodeTargetLevel>
   </component>
 </project>

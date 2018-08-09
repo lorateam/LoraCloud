@@ -4,6 +4,7 @@ import java.util.List;
 import model.Data;
 import model.DataExample;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface DataMapper {
     long countByExample(DataExample example);
@@ -28,6 +29,9 @@ public interface DataMapper {
     List<Data> getOneAddressOneHistoryHighSensorInfo(Data data);
 
     //选择一个地点某个传感器的过去十天每天的最低历史数据
+    @Select("select id,sensor_name,min(value)as value,address_id,time,uuid from data " +
+            "where sensor_name=#{sensor_name}and address_id = #{address_id} " +
+            "GROUP BY date_format(time,\"%Y-%e-%d\") ORDER BY time DESC  LIMIT 10;")
     List<Data> getOneAddressOneHistoryLowSensorInfo(Data data);
 
     Data selectByPrimaryKey(Integer id);

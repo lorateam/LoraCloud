@@ -24,7 +24,10 @@ public interface BoxesMapper {
     Boxes selectByPrimaryKey(Integer id);
 
     @Select("select * from boxes where uuid=#{uuid}")
-    Boxes selectAddressIdByUuid(String uuid);
+    Boxes selectByUuid(String uuid);
+
+    @Select("select * from boxes where address_id=#{addressId}")
+    List<Boxes> selectByAddressId(Integer addressId);
 
     int updateByExampleSelective(@Param("record") Boxes record, @Param("example") BoxesExample example);
 

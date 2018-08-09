@@ -4,6 +4,7 @@ import java.util.List;
 import model.Address;
 import model.AddressExample;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface AddressMapper {
     long countByExample(AddressExample example);
@@ -15,6 +16,9 @@ public interface AddressMapper {
     int insert(Address record);
 
     int insertSelective(Address record);
+
+    @Select("select * from address")
+    List<Address> listAddress();
 
     List<Address> selectByExample(AddressExample example);
 

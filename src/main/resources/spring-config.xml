@@ -13,6 +13,7 @@
     <mvc:annotation-driven/>
     <!--包自动扫描-->
     <context:component-scan base-package="controller"/>
+    <context:component-scan base-package="service"/>
 
     <!--非cntroller转发到默认servlet-->
     <mvc:default-servlet-handler default-servlet-name="default" />
