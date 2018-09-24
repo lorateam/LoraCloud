@@ -100,10 +100,7 @@
     select id,sensor_name,max(value)as value,address_id,time,uuid from data where sensor_name=#{sensor_name}and address_id = #{address_id}
     GROUP BY date_format(time,"%Y-%e-%d") ORDER BY time DESC  LIMIT 10;
   </select>
-  <select id="getOneAddressOneHistoryLowSensorInfo" parameterType="model.Data" resultMap="BaseResultMap">
-    select id,sensor_name,min(value)as value,address_id,time,uuid from data where sensor_name=#{sensor_name}and address_id = #{address_id}
-    GROUP BY date_format(time,"%Y-%e-%d") ORDER BY time DESC  LIMIT 10;
-  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from data
     where id = #{id,jdbcType=INTEGER}
