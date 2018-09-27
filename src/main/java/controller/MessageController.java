@@ -107,21 +107,24 @@ class MessageController{
     @RequestMapping(value = "/action/currentInfor/address/boxes",produces = "text/html;charset=UTF-8")
     @ResponseBody
     public List<Data> getOneAddressAllCurrentSensorInfo(@RequestParam(value = "addressId")  int addressId) throws Exception{
-        return null;
+        return dataService.allCurrentData();
     }
 
 
     //获取某一地点的某一传感器的当前信息
     @RequestMapping(value="/action/currentInfo/address/boxes/sensor",produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public Data getOneAddressOneCurrentSensorInfo(@RequestParam(value = "addressId") int addressId,@RequestParam (value = "sensorName") String sensorName) throws Exception{
-        return null;
+    public Data getOneAddressOneCurrentSensorInfo(Data data) throws Exception{
+//        return dataService.oneCurrentData(data);
+        return data;
     }
 
     //获取某一个地点的某一个传感器过去十天的历史数据
     @RequestMapping(value = "/action/historyData/address/boxes/sensor",produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public List<Data> getOneAddressOneHistorySensorInfo(Integer addressId, String sensorName){
+    public List<Data> getOneAddressOneHistorySensorInfo(Data data){ //address_id, sensor_name
+        List<Data> low = dataService.historyLowData(data);
+        List<Data> high = dataService.historyHighData(data);
         return null;
     }
 
