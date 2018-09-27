@@ -9,6 +9,7 @@ import mapper.BoxesMapper;
 import mapper.DataMapper;
 import mapper.VideoMapper;
 import model.*;
+import mqtt.Listener;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,7 @@ class MessageController{
     AddressService addressService;
     @Autowired
     VideoService videoService;
-
+    private int mqttCount = 1;
     @RequestMapping("/action/postdata")
     @ResponseBody
     public String postData(HttpServletRequest request) {
@@ -115,8 +116,7 @@ class MessageController{
     @RequestMapping(value="/action/currentInfo/address/boxes/sensor",produces = "text/html;charset=UTF-8")
     @ResponseBody
     public Data getOneAddressOneCurrentSensorInfo(Data data) throws Exception{
-//        return dataService.oneCurrentData(data);
-        return data;
+        return dataService.oneCurrentData(data);
     }
 
     //获取某一个地点的某一个传感器过去十天的历史数据
@@ -133,5 +133,25 @@ class MessageController{
     @ResponseBody
     public List<Video> getVideoInfo(Integer addressId) {
         return videoService.listVideos(addressId);
+    }
+
+    @RequestMapping(value = "/mqtt",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String startMqtt() throws Exception{
+        if(mqttCount==0)
+            return "MQTT Listener 已经打开，请勿重复操作！";
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run(){
+                try{
+                    Listener.main();
+                }catch (Exception e){
+                    logger.info(null);
+                }
+            }
+        });
+        mqttCount -= 1;
+        thread.start();
+        return "MQTT Listener已打开！";
     }
 }
