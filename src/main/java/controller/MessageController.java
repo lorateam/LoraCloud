@@ -9,6 +9,7 @@ import mapper.BoxesMapper;
 import mapper.DataMapper;
 import mapper.VideoMapper;
 import model.*;
+import mqtt.Listener;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,7 @@ class MessageController{
     AddressService addressService;
     @Autowired
     VideoService videoService;
-
+    private int mqttCount = 1;
     @RequestMapping("/action/postdata")
     @ResponseBody
     public String postData(HttpServletRequest request) {
@@ -107,21 +108,23 @@ class MessageController{
     @RequestMapping(value = "/action/currentInfor/address/boxes",produces = "text/html;charset=UTF-8")
     @ResponseBody
     public List<Data> getOneAddressAllCurrentSensorInfo(@RequestParam(value = "addressId")  int addressId) throws Exception{
-        return null;
+        return dataService.allCurrentData();
     }
 
 
     //获取某一地点的某一传感器的当前信息
     @RequestMapping(value="/action/currentInfo/address/boxes/sensor",produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public Data getOneAddressOneCurrentSensorInfo(@RequestParam(value = "addressId") int addressId,@RequestParam (value = "sensorName") String sensorName) throws Exception{
-        return null;
+    public Data getOneAddressOneCurrentSensorInfo(Data data) throws Exception{
+        return dataService.oneCurrentData(data);
     }
 
     //获取某一个地点的某一个传感器过去十天的历史数据
     @RequestMapping(value = "/action/historyData/address/boxes/sensor",produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public List<Data> getOneAddressOneHistorySensorInfo(Integer addressId, String sensorName){
+    public List<Data> getOneAddressOneHistorySensorInfo(Data data){ //address_id, sensor_name
+        List<Data> low = dataService.historyLowData(data);
+        List<Data> high = dataService.historyHighData(data);
         return null;
     }
 
@@ -130,5 +133,25 @@ class MessageController{
     @ResponseBody
     public List<Video> getVideoInfo(Integer addressId) {
         return videoService.listVideos(addressId);
+    }
+
+    @RequestMapping(value = "/mqtt",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String startMqtt() throws Exception{
+        if(mqttCount==0)
+            return "MQTT Listener 已经打开，请勿重复操作！";
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run(){
+                try{
+                    Listener.main();
+                }catch (Exception e){
+                    logger.info(null);
+                }
+            }
+        });
+        mqttCount -= 1;
+        thread.start();
+        return "MQTT Listener已打开！";
     }
 }
