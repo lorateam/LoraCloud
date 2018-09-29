@@ -1,14 +1,6 @@
-<<<<<<< HEAD
-.idea/
-.settings/
-.vscode/
-__pycache__/
-*.pyc
-=======
 target
 .idea
 .setting
 .vscode
 .classpath
 .project
->>>>>>> a2f7840ad50568909684bd0a032ffa0dfb28d3c5
