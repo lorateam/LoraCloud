@@ -12,6 +12,6 @@ export function fetchOneAddressAllCurrentSensorInfo(data) {
   const { addressId } = data;
   return request({
     url: `/currentInfor/address/boxes?addressId=${addressId}`,
-    method: 'get',
+    method: 'post',
   });
 }

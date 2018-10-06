@@ -17,6 +17,7 @@ export default {
     };
   },
   mounted() {
+    //生成地图
     this.gaoDeMap = new AMap.Map('container', {
       pitch: 60,
       rotation: 150,
@@ -26,11 +27,12 @@ export default {
       // viewMode: '3D',
       center:[103.993805,30.553578],
     });
+    //拉取地图中所有点的信息
     fetchAllAddressInfo().then((response) => {
       this.addressInfo = response.data;
       this.addressInfo.forEach((a) => {
         this.initMapPoint(a.name, a.agent, a.id, a.longitude, a.latitude);
-        this.gaoDeMap.setFitView();
+        this.gaoDeMap.setFitView();//显示地图
       });
     });
     this.initMap();
@@ -43,6 +45,7 @@ export default {
         fetchOneAddressAllCurrentSensorInfo({ addressId: tempAddressId })
           .then((response) => {
             const json = response.data;
+            console.log(json);
             // 框体信息
             const info = [];
             // 右侧信息显示栏
@@ -78,6 +81,8 @@ export default {
       });
       mapPoint.on('click', showSensorCurrentInfor);
     },
+
+    //这个函数是用来做实验的
     initMap(){
       var circleMarker = new AMap.Marker({
         center:[103.994686,30.553971],
