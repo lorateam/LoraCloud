@@ -1,9 +1,10 @@
 package mqtt;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
@@ -19,11 +20,8 @@ import org.fusesource.mqtt.client.CallbackConnection;
 import org.fusesource.mqtt.client.MQTT;
 import org.fusesource.mqtt.client.QoS;
 import org.fusesource.mqtt.client.Topic;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import service.BoxesService;
 import service.DataService;
-
-import javax.print.attribute.standard.DateTimeAtCompleted;
 
 public class Listener {
     private final MQTT mqtt = new MQTT();
@@ -89,7 +87,7 @@ public class Listener {
         try {
             main.mqtt.setHost("tcp://118.24.3.29:1883");
             main.showTopic = false;
-            main.topics.add(new Topic("#",qos));
+            main.topics.add(new Topic("SCUMAKERS/#",qos));
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -213,19 +211,32 @@ public class Listener {
     private void insertIntoDB(Buffer body){
         String info = body.ascii().toString();
         try {
-            Map<String, Float> dataMap = JSONObject.parseObject(info, new TypeReference<Map<String, Float>>() {
+            Map<String, Map<String,Float>> dataMap = JSONObject.parseObject(info, new TypeReference<Map<String, Map<String,Float>>>() {
             });
-            Data data = new Data();
-            data.setAddress_id(1);
-            for (Map.Entry<String, Float> entry : dataMap.entrySet()) {
-                data.setSensor_name(entry.getKey());
-                data.setValue(entry.getValue());
-                data.setUuid("test");
-                DataService dataService = new DataService();
-                dataService.insert(data);
+            List<Data> datas = new ArrayList<>();
+            BoxesService boxesService = new BoxesService();
+            for (Map.Entry<String, Map<String,Float>> entry : dataMap.entrySet()) {
+                String uuid = entry.getKey();
+                Map<String, Float> sensors = entry.getValue();
+                for (Map.Entry<String,Float> entry1 : sensors.entrySet()){
+                    Data data = new Data();
+                    data.setSensor_name(entry1.getKey());
+                    data.setValue(entry1.getValue());
+                    data.setUuid(uuid);
+                    try {
+                        data.setAddress_id(boxesService.getBox(uuid).getAddress_id());
+                    }catch (NullPointerException e){
+                        logger.info("uuid未注册!");
+                    }
+                    datas.add(data);
+                }
             }
+            DataService dataService = new DataService();
+            dataService.insertDatas(datas);
+            logger.info(datas.toString());
         }catch (Exception e){
-            logger.info("mqtt消息不是数据报文");
+            e.printStackTrace();
+//            logger.info("mqtt消息不是数据报文");
         }
     }
 }

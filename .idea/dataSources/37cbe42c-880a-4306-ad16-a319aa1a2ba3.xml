@@ -1016,7 +1016,6 @@
     <column id="250" parent="231" name="address_id">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="251" parent="231" name="time">

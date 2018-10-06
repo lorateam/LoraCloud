@@ -10,6 +10,7 @@ import mapper.DataMapper;
 import mapper.VideoMapper;
 import model.*;
 import mqtt.Listener;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,39 +58,54 @@ class MessageController{
     AddressService addressService;
     @Autowired
     VideoService videoService;
-    private int mqttCount = 1;
-    @RequestMapping("/action/postdata")
-    @ResponseBody
-    public String postData(HttpServletRequest request) {
-        //解析数据
-        String uuid,sensorInfor;
-        try{
-            uuid = request.getHeader("uuid");
-            sensorInfor = request.getHeader("sensorInfo");
-        }catch (Exception e){
-            return "uuid or sensorInfo not found in headers";
-        }
 
-        //简单查询
-        Boxes boxes = boxesService.getBox(uuid);
-        if(boxes == null)
-            return "error:uuid didn't regester";
-        Data data = new Data();
-        data.setAddress_id(boxes.getAddress_id());
-        Map<String, Float> dataMap = JSONObject.parseObject(sensorInfor, new TypeReference<Map<String, Float>>() {
-        });
-        for (Map.Entry<String, Float> entry : dataMap.entrySet()) {
-            data.setSensor_name(entry.getKey());
-            data.setValue(entry.getValue());
-            data.setUuid(uuid);
-            try {
-                dataService.insert(data);
-            }catch (Exception e) {
-                return e.toString();
+    public MessageController(){
+        //启动mqtt数据收集
+        new Thread(new Runnable() {
+            @Override
+            public void run(){
+                try{
+                    Listener.main();
+                }catch (Exception e){
+                    logger.info(null);
+                }
             }
-        }
-        return "success";
+        }).start();
     }
+
+//    @RequestMapping("/action/postdata")
+//    @ResponseBody
+//    public String postData(HttpServletRequest request) {
+//        //解析数据
+//        String uuid,sensorInfor;
+//        try{
+//            uuid = request.getHeader("uuid");
+//            sensorInfor = request.getHeader("sensorInfo");
+//        }catch (Exception e){
+//            return "uuid or sensorInfo not found in headers";
+//        }
+//
+//        //简单查询
+//        Boxes boxes = boxesService.getBox(uuid);
+//        if(boxes == null)
+//            return "error:uuid didn't regester";
+//        Data data = new Data();
+//        data.setAddress_id(boxes.getAddress_id());
+//        Map<String, Float> dataMap = JSONObject.parseObject(sensorInfor, new TypeReference<Map<String, Float>>() {
+//        });
+//        for (Map.Entry<String, Float> entry : dataMap.entrySet()) {
+//            data.setSensor_name(entry.getKey());
+//            data.setValue(entry.getValue());
+//            data.setUuid(uuid);
+//            try {
+//                dataService.insert(data);
+//            }catch (Exception e) {
+//                return e.toString();
+//            }
+//        }
+//        return "success";
+//    }
+
     //获取所有地点的基本信息
     @RequestMapping(value = "/action/baseInfo/address",produces="text/html;charset=UTF-8")
     @ResponseBody
@@ -100,15 +116,15 @@ class MessageController{
     //获取某一个地点的所有传感器信息
     @RequestMapping(value="/action/baseInfo/address/boxes",produces="text/html;charset=UTF-8")
     @ResponseBody
-    public List<Boxes> getOneAddressBoxInfo(Integer addressId) {
-        return boxesService.listBoxes(addressId);
+    public List<Boxes> getOneAddressBoxInfo(Integer address_id) {
+        return boxesService.listBoxes(address_id);
     }
 
     //获取某一地点的所有传感器的当前信息
     @RequestMapping(value = "/action/currentInfor/address/boxes",produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public List<Data> getOneAddressAllCurrentSensorInfo(@RequestParam(value = "addressId")  int addressId) throws Exception{
-        return dataService.allCurrentData();
+    public List<Data> getOneAddressAllCurrentSensorInfo(Data data) throws Exception{
+        return dataService.allCurrentData(data);
     }
 
 
@@ -131,27 +147,23 @@ class MessageController{
     //获取某一个地点的所有监控信息
     @RequestMapping(value = "/action/video",produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public List<Video> getVideoInfo(Integer addressId) {
-        return videoService.listVideos(addressId);
+    public List<Video> getVideoInfo(Integer address_id) {
+        return videoService.listVideos(address_id);
     }
 
-    @RequestMapping(value = "/mqtt",produces = "text/html;charset=UTF-8")
+    //添加新的芯片uuid信息
+    @RequestMapping(value = "/setbox",produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String startMqtt() throws Exception{
-        if(mqttCount==0)
-            return "MQTT Listener 已经打开，请勿重复操作！";
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run(){
-                try{
-                    Listener.main();
-                }catch (Exception e){
-                    logger.info(null);
-                }
-            }
-        });
-        mqttCount -= 1;
-        thread.start();
-        return "MQTT Listener已打开！";
+    public String setbox(@Param("password")String password, Boxes boxes) {
+        if (!password.equals("scumaker"))
+            return "密码错误，添加失败！";
+        try{
+            boxesService.insert(boxes);
+            return "success!";
+        }catch (Exception e){
+            return e.getMessage();
+        }
     }
+
+
 }

@@ -11,5 +11,4 @@ public class AddressService extends ServiceBase {
     public List<Address> listAddress(){
         return addressMapper.listAddress();
     }
-
 }
