@@ -33,19 +33,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-/*
-* 数据库应该配置长连接
-*
-* 返回数据方式使用return
-*
-* 数据库操作:简单查询,直接通过dao调用*注解mapper*方法,复杂查询在dao内使用example(尽量不要写xml)
-*
-* 配置事务自动提交,修复数据插入失败问题(已完成)
-*d
-* 日志具体内容和格式进一步优化
-*
-* 今晚没时间能做到要用example的,明天再搞了
-* */
 @Controller
 @RequestMapping("")
 class MessageController{
@@ -72,39 +59,6 @@ class MessageController{
             }
         }).start();
     }
-
-//    @RequestMapping("/action/postdata")
-//    @ResponseBody
-//    public String postData(HttpServletRequest request) {
-//        //解析数据
-//        String uuid,sensorInfor;
-//        try{
-//            uuid = request.getHeader("uuid");
-//            sensorInfor = request.getHeader("sensorInfo");
-//        }catch (Exception e){
-//            return "uuid or sensorInfo not found in headers";
-//        }
-//
-//        //简单查询
-//        Boxes boxes = boxesService.getBox(uuid);
-//        if(boxes == null)
-//            return "error:uuid didn't regester";
-//        Data data = new Data();
-//        data.setAddress_id(boxes.getAddress_id());
-//        Map<String, Float> dataMap = JSONObject.parseObject(sensorInfor, new TypeReference<Map<String, Float>>() {
-//        });
-//        for (Map.Entry<String, Float> entry : dataMap.entrySet()) {
-//            data.setSensor_name(entry.getKey());
-//            data.setValue(entry.getValue());
-//            data.setUuid(uuid);
-//            try {
-//                dataService.insert(data);
-//            }catch (Exception e) {
-//                return e.toString();
-//            }
-//        }
-//        return "success";
-//    }
 
     //获取所有地点的基本信息
     @RequestMapping(value = "/action/baseInfo/address",produces="text/html;charset=UTF-8")
@@ -164,6 +118,4 @@ class MessageController{
             return e.getMessage();
         }
     }
-
-
 }
