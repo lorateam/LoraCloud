@@ -15,14 +15,11 @@
       <el-col :span="2" style="height: 43vh;background-color: #bdcadb; margin-right: 30px;font-size: 60px;">
         <span>视<br>频<br>监<br>控</span>
       </el-col>
-      <el-col :span="7" style="height: 43vh; margin-right: 18px;">
-        <video id="video1" controls autoplay style="width: 100%; height: 100%"></video>
+            <el-col :span="4" style="height: 43vh;margin-right: 30px;font-size: 60px;">
       </el-col>
-      <el-col :span="7" style="height: 43vh;margin-right: 18px;">
-        <video id="video2" controls autoplay style="width: 100%; height: 100%"></video>
-      </el-col>
-      <el-col :span="7" style="height: 43vh;">
-        <video id="video3" controls autoplay style="width: 100%; height: 100%"></video>
+      <el-col :span="10" style="height: 43vh; margin-right: 18px;">
+        <div id="divPlugin" class="plugin">
+        </div>
       </el-col>
     </el-row>
   </div>
@@ -55,13 +52,15 @@ export default {
   mounted() {
     this.getAddressBaseInfo();
     this.initVideo();
+    this.loginVideo('192.168.100.95', '80', 'admin', 'ckkjb208');
   },
   methods: {
     // 获取所有地点的基本信息
     getAddressBaseInfo() {
+      var that = this;
       fetchAllAddressInfo().then(response => {
-        this.addressInfo = response.data;
-        this.getFireOrNot();
+        that.addressInfo = response.data;
+        that.getFireOrNot();
       });
     },
     // 获取当前时间并格式化
@@ -106,27 +105,62 @@ export default {
       this.infoBox = data.infoBox;
       this.IMap = data.IMap;
     },
-    // 显示视频
+    //初始化video
     initVideo() {
-      const baiduUrl1 = "rtsp://admin:ckkjb208@192.168.199.59:554/MPEG-4/ch1/main/av_stream";
-      const baiduUrl2 = "rtsp://admin:ckkjb208@192.168.199.54:554/MPEG-4/ch1/main/av_stream";
-      const baiduUrl3 = "rtsp://admin:ckkjb208@192.168.199.60:554/MPEG-4/ch1/main/av_stream";
-      const videoDiv1 = document.getElementById('video1');
-      const videoDiv2 = document.getElementById('video2');
-      const videoDiv3 = document.getElementById('video3');
-      videoDiv1.src = baiduUrl1;
-      videoDiv2.src = baiduUrl2;
-      videoDiv3.src = baiduUrl3;
-      Streamedian.player('video1', {
-        socket: 'ws://192.168.199.155:8081/ws/',
+      // 检查插件是否已经安装过
+      if (-1 === WebVideoCtrl.I_CheckPluginInstall()) {
+        alert("您还未安装过插件，双击开发包目录里的WebComponents.exe安装！");
+        return;
+      }
+      // 初始化插件参数及插入插件
+      WebVideoCtrl.I_InitPlugin('100%', '100%', {
+        iWndowType: 4
       });
-      Streamedian.player('video2', {
-        socket: 'ws://192.168.199.155:8081/ws/',
-      });
-      Streamedian.player('video3', {
-        socket: 'ws://192.168.199.155:8081/ws/',
+      WebVideoCtrl.I_InsertOBJECTPlugin("divPlugin");
+      // 检查插件是否最新
+      if (-1 === WebVideoCtrl.I_CheckPluginVersion()) {
+        alert("检测到新的插件版本，双击开发包目录里的WebComponents.exe升级！");
+        return;
+      }
+      // 窗口事件绑定
+      $(window).bind({
+        resize: function () {
+          var $Restart = $("#restartDiv");
+          if ($Restart.length > 0) {
+            var oSize = getWindowSize();
+            $Restart.css({
+              width: oSize.width + "px",
+              height: oSize.height + "px"
+            });
+          }
+        }
       });
     },
+    // 登录
+    loginVideo(szIP, szPort, szUsername, szPassword) {
+      var that = this;
+      if ("" === szIP || "" === szPort) {
+          return;
+      }
+      var iRet = WebVideoCtrl.I_Login(szIP, 1, szPort, szUsername, szPassword, {
+        success: function (xmlDoc) {
+          console.log("登陆成功!");
+          that.playVideo(szIP)
+        },
+        error: function () {
+          console.log("登陆失败!");
+        }
+      });
+      if (-1 == iRet) {
+        showOPInfo(szIP + " 已登录过！");
+      }
+    },
+    // 开始预览
+    playVideo(szIp) {
+      var iRet = WebVideoCtrl.I_StartRealPlay(szIp, {
+        iStreamType: 2
+      });
+    }
   },
   components: {
     infoBox,

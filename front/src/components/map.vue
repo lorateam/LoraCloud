@@ -23,7 +23,8 @@ export default {
       resizeEnable: true,
       expandZoomRange: true,
       zooms: [17, 20],
-      viewMode: '3D',
+      // viewMode: '3D',
+      center:[103.993805,30.553578],
     });
     fetchAllAddressInfo().then((response) => {
       this.addressInfo = response.data;
@@ -32,6 +33,7 @@ export default {
         this.gaoDeMap.setFitView();
       });
     });
+    this.initMap();
   },
 
   methods: {
@@ -76,6 +78,17 @@ export default {
       });
       mapPoint.on('click', showSensorCurrentInfor);
     },
+    initMap(){
+      var circleMarker = new AMap.Marker({
+        center:[103.994686,30.553971],
+        map: this.gaoDeMap,
+        icon: new AMap.Icon({            
+          size: new AMap.Size(40, 50),  //图标大小
+          image: "https://webapi.amap.com/theme/v1.3/images/newpc/way_btn4.png",
+          imageOffset: new AMap.Pixel(0, -60)
+        }),
+      });
+    }
   },
 };
 </script>
