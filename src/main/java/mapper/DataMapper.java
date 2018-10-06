@@ -3,6 +3,8 @@ package mapper;
 import java.util.List;
 import model.Data;
 import model.DataExample;
+import mqtt.Listener;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -16,6 +18,9 @@ public interface DataMapper {
     int insert(Data record);
 
     int insertSelective(Data record);
+
+    @Insert("insert into data(sensor_name, value, address_id, time, uuid) values #{datas}")
+    int insertDatas(@Param("datas") List<Data> datas);
 
     List<Data> selectByExample(DataExample example);
 

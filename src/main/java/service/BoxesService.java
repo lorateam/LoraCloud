@@ -13,4 +13,8 @@ public class BoxesService extends ServiceBase{
     public List<Boxes> listBoxes(Integer addressId){
         return boxesMapper.selectByAddressId(addressId);
     }
+
+    public void insert(Boxes boxes){
+        boxesMapper.insert(boxes);
+    }
 }

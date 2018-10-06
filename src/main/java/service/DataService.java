@@ -1,6 +1,7 @@
 package service;
 
 import model.Data;
+import mqtt.Listener;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,8 +11,8 @@ public class DataService extends ServiceBase {
     public void insert(Data data){
         dataMapper.insert(data);
     }
-    public List<Data> allCurrentData(){
-        return dataMapper.selectAllSensorCurrentData(new Data());
+    public List<Data> allCurrentData(Data data){
+        return dataMapper.selectAllSensorCurrentData(data);
     }
 
     public Data oneCurrentData(Data data){
@@ -24,5 +25,9 @@ public class DataService extends ServiceBase {
 
     public List<Data> historyLowData(Data data){
         return dataMapper.getOneAddressOneHistoryLowSensorInfo(data);
+    }
+
+    public void insertDatas(List<Data> datas){
+        dataMapper.insertDatas(datas);
     }
 }
