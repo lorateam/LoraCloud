@@ -11,8 +11,8 @@ public class DataService extends ServiceBase {
     public void insert(Data data){
         dataMapper.insert(data);
     }
-    public List<Data> allCurrentData(Data data){
-        return dataMapper.selectAllSensorCurrentData(data);
+    public List<Data> allCurrentData(int address_id){
+        return dataMapper.selectAllSensorCurrentData(address_id);
     }
 
     public Data oneCurrentData(Data data){

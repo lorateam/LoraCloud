@@ -235,8 +235,8 @@ public class Listener {
             dataService.insertDatas(datas);
             logger.info(datas.toString());
         }catch (Exception e){
-            e.printStackTrace();
-//            logger.info("mqtt消息不是数据报文");
+//            e.printStackTrace();
+            logger.info("mqtt消息不是数据报文");
         }
     }
 }

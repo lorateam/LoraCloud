@@ -25,18 +25,22 @@ public interface DataMapper {
     List<Data> selectByExample(DataExample example);
 
     //选择一个地点所有传感器的当前信息
-    List<Data> selectAllSensorCurrentData(Data data);
+    @Select("SELECT * from (SELECT * from data WHERE address_id = #{address_id} ORDER BY time DESC ) b GROUP BY sensor_name")
+    List<Data> selectAllSensorCurrentData(int address_id);
 
     //选择一个地点某一个传感器的当前信息
+    @Select("SELECT * from data WHERE address_id=#{address_id} and sensor_name = #{sensor_name} ORDER BY time DESC LIMIT 1")
     Data selectOneSensorCurrentData(Data data);
 
     //选择一个地点某一个传感器的过去十天每天的最高历史数据
+    @Select("select id,sensor_name,max(value)as value,address_id,time,uuid from data where sensor_name=#{sensor_name}and address_id = #{address_id}" +
+            " GROUP BY date_format(time,\"%Y-%m-%d\") ORDER BY time DESC  LIMIT 10;")
     List<Data> getOneAddressOneHistoryHighSensorInfo(Data data);
 
     //选择一个地点某个传感器的过去十天每天的最低历史数据
     @Select("select id,sensor_name,min(value)as value,address_id,time,uuid from data " +
             "where sensor_name=#{sensor_name}and address_id = #{address_id} " +
-            "GROUP BY date_format(time,\"%Y-%e-%d\") ORDER BY time DESC  LIMIT 10;")
+            "GROUP BY date_format(time,\"%Y-%m-%d\") ORDER BY time DESC  LIMIT 10;")
     List<Data> getOneAddressOneHistoryLowSensorInfo(Data data);
 
     Data selectByPrimaryKey(Integer id);
