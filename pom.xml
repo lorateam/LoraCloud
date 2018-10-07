@@ -79,7 +79,7 @@
     <dependency>
       <groupId>org.fusesource.mqtt-client</groupId>
       <artifactId>mqtt-client</artifactId>
-      <version>RELEASE</version>
+      <version>1.14</version>
     </dependency>
 
   </dependencies>
