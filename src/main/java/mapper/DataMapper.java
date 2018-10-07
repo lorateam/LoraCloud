@@ -22,7 +22,7 @@ public interface DataMapper {
     List<Data> selectByExample(DataExample example);
 
     //选择一个地点所有传感器的当前信息
-    @Select("select b.value,sensor_name,address_id,time,a.unit, a.note as name from sensors as a,data as b where address_id=#{address_id} and a.name=b.sensor_name and time in (select max(time)from data group by sensor_name) GROUP BY sensor_name")
+    @Select("select b.value,sensor_name,address_id,time,a.unit, a.note as name from sensors as a,data as b where sensor_name NOT IN ('water','fire') and address_id=#{address_id} and a.name=b.sensor_name and time in (select max(time)from data group by sensor_name) GROUP BY sensor_name")
     List<Data> selectAllSensorCurrentData(int address_id);
 
     //选择一个地点某一个传感器的当前信息
