@@ -99,10 +99,10 @@ class MessageController{
         JSONArray history = new JSONArray();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         for(int i = 0; i < low.size(); i++){
-            List<String> oneDay = new ArrayList<>();
-            oneDay.add(sdf.format(low.get(i).getTime()));
-            oneDay.add(high.get(i).getValue().toString());
-            oneDay.add(low.get(i).getValue().toString());
+            HashMap<String, String> oneDay = new HashMap<>();
+            oneDay.put("time",sdf.format(low.get(i).getTime()));
+            oneDay.put("highValue",high.get(i).getValue().toString());
+            oneDay.put("lowValue", low.get(i).getValue().toString());
             history.add(oneDay);
         }
         return history;

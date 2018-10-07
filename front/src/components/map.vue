@@ -61,8 +61,8 @@ export default {
                 temp.dataName = json[i].name;
                 temp.time = currentData;
                 temp.value = `${json[i].value} ${json[i].unit}`;
-                temp.sensorName = `${json[i].sensorName}`;
-                temp.addressId = json[i].addressId;
+                temp.sensorName = `${json[i].sensor_name}`;
+                temp.addressId = json[i].address_id;
                 infoBox.push(temp);
               }
             }
@@ -89,7 +89,7 @@ export default {
         map: this.gaoDeMap,
         icon: new AMap.Icon({            
           size: new AMap.Size(40, 50),  //图标大小
-          image: "https://webapi.amap.com/theme/v1.3/images/newpc/way_btn4.png",
+          image: "https://webapi.amap.com/theme/v1.3/images/newpc/way_btn2.png",
           imageOffset: new AMap.Pixel(0, -60)
         }),
       });
