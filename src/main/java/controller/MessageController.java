@@ -10,6 +10,7 @@ import mapper.DataMapper;
 import mapper.VideoMapper;
 import model.*;
 import mqtt.Listener;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
@@ -77,8 +78,8 @@ class MessageController{
     //获取某一地点的所有传感器的当前信息
     @RequestMapping(value = "/action/currentInfor/address/boxes",produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public List<Data> getOneAddressAllCurrentSensorInfo(Data data) throws Exception{
-        return dataService.allCurrentData(data);
+    public List<Data> getOneAddressAllCurrentSensorInfo(Integer address_id) throws Exception{
+        return dataService.allCurrentData(address_id);
     }
 
 
@@ -92,10 +93,19 @@ class MessageController{
     //获取某一个地点的某一个传感器过去十天的历史数据
     @RequestMapping(value = "/action/historyData/address/boxes/sensor",produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public List<Data> getOneAddressOneHistorySensorInfo(Data data){ //address_id, sensor_name
+    public JSONArray getOneAddressOneHistorySensorInfo(Data data){ //address_id, sensor_name
         List<Data> low = dataService.historyLowData(data);
         List<Data> high = dataService.historyHighData(data);
-        return null;
+        JSONArray history = new JSONArray();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        for(int i = 0; i < low.size(); i++){
+            List<String> oneDay = new ArrayList<>();
+            oneDay.add(sdf.format(low.get(i).getTime()));
+            oneDay.add(high.get(i).getValue().toString());
+            oneDay.add(low.get(i).getValue().toString());
+            history.add(oneDay);
+        }
+        return history;
     }
 
     //获取某一个地点的所有监控信息

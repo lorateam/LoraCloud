@@ -226,17 +226,17 @@ public class Listener {
                     try {
                         data.setAddress_id(boxesService.getBox(uuid).getAddress_id());
                     }catch (NullPointerException e){
-                        logger.info("uuid未注册!");
+                        logger.error("uuid未注册!");
                     }
                     datas.add(data);
                 }
             }
             DataService dataService = new DataService();
-            dataService.insertDatas(datas);
             logger.info(datas.toString());
+            dataService.insertDatas(datas);
         }catch (Exception e){
             e.printStackTrace();
-//            logger.info("mqtt消息不是数据报文");
+            logger.error("mqtt消息不是数据报文");
         }
     }
 }
