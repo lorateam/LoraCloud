@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新增传感器</title>
+</head>
+<body>
+<h1>新增传感器</h1>
+<form action="/setbox">
+    <p>
+        管理员密码：
+        <input type="text" name="password">
+    </p>
+    <p>uuid:<input type="text" name="uuid" placeholder="uuid" maxlength="8"></p>
+    <p>
+        地址id:
+        <input type="number" name="address_id" placeholder="address_id" minlength="1">
+    </p>
+    <p>
+        传感器类型：
+        <input type="text" name="sensors" placeholder="sensors">
+    </p>
+    <input type="submit">
+</form>
+<h2>地址id参考列表：</h2>
+<img src="img/address.jpg">
+</body>
+</html>

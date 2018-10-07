@@ -5,6 +5,7 @@ import model.Boxes;
 import model.BoxesExample;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import com.mysql.jdbc.*;
 
 import javax.swing.*;
 

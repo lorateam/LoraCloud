@@ -28,6 +28,8 @@ public class DataService extends ServiceBase {
     }
 
     public void insertDatas(List<Data> datas){
-        dataMapper.insertDatas(datas);
+        for(Data data:datas){
+            dataMapper.insert(data);
+        }
     }
 }

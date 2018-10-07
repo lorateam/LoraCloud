@@ -7,7 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.log4j.Logger;
-
+import com.mysql.jdbc.*;
 import java.io.IOException;
 import java.io.InputStream;
 public class MybatisSessionFactory {

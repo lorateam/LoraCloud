@@ -19,9 +19,6 @@ public interface DataMapper {
 
     int insertSelective(Data record);
 
-    @Insert("insert into data(sensor_name, value, address_id, time, uuid) values #{datas}")
-    int insertDatas(@Param("datas") List<Data> datas);
-
     List<Data> selectByExample(DataExample example);
 
     //选择一个地点所有传感器的当前信息
