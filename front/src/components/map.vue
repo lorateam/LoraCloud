@@ -80,6 +80,7 @@ export default {
             WebVideoCtrl.I_Stop(i);
           }
           const json = response.data;
+          console.log(json);
           for(let i = 0; i < json.length; i++){
             if(json[i] !== null){
               that.loginAndPlayVideo(json[i].ip, json[i].port, json[i].user_name, json[i].password, i);

@@ -16,28 +16,6 @@
         </el-row>
       </el-col>
     </el-row>
-    <!-- <el-row :gutter="20">
-      <el-col :span="6">
-        <infoBox :tableData4="tableData4"></infoBox>
-      </el-col>
-      <el-col :span="12">
-          <gao-de-map @getCurrentInfo="getCurrentFromMap"/>
-      </el-col>
-      <el-col :span="6">
-        <current-data :currentData="infoBox"/>
-      </el-col>
-    </el-row>
-    <el-row :gutter="20">
-      <el-col :span="2" style="height: 43vh;background-color: #bdcadb; margin-right: 30px;font-size: 60px;">
-        <span>视<br>频<br>监<br>控</span>
-      </el-col>
-            <el-col :span="4" style="height: 43vh;margin-right: 30px;font-size: 60px;">
-      </el-col>
-      <el-col :span="10" style="height: 50vh; margin-right: 18px;">
-        <div id="divPlugin" class="plugin">
-        </div>
-      </el-col>
-    </el-row> -->
   </div>
 </template>
 

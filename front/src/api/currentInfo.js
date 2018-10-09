@@ -3,7 +3,7 @@ import request from '@/utils/request';
 export function fetchOneAddressOneCurrentSensorInfo(data) {
   const { addressId, sensorName } = data;
   return request({
-    url: `/currentInfo/address/boxes/sensor?address_id=${addressId}&sensorName=${sensorName}`,
+    url: `/currentInfo/address/boxes/sensor?address_id=${addressId}&sensor_name=${sensorName}`,
     method: 'post',
   });
 }
