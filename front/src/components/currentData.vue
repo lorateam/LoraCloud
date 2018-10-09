@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="currentDataDiv">
     <el-table
       v-bind:data="currentData"
+      border="2"
       style="width: 100%"
       height="50vh">
-
       <el-table-column
         prop="dataName"
         label="名称"
@@ -93,5 +93,7 @@ export default {
 </script>
 
 <style scoped>
-
+.currentDataDiv {
+  float: left;
+}
 </style>

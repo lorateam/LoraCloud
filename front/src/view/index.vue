@@ -1,6 +1,22 @@
 <template>
   <div>
     <el-row :gutter="20">
+      <el-col :span="12">
+        <gao-de-map @getCurrentInfo="getCurrentFromMap"/>
+      </el-col>
+      <el-col :span="12" style="height: 100vh">
+        <el-row>
+          <el-col :span="24"><div id="divPlugin" class="plugin" /></el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="2">实时数据</el-col>
+          <el-col :span="10"><current-data :currentData="infoBox"/></el-col>
+          <el-col :span="2">消息提示框</el-col>
+          <el-col :span="10"><infoBox :tableData4="tableData4" /></el-col>
+        </el-row>
+      </el-col>
+    </el-row>
+    <!-- <el-row :gutter="20">
       <el-col :span="6">
         <infoBox :tableData4="tableData4"></infoBox>
       </el-col>
@@ -17,11 +33,11 @@
       </el-col>
             <el-col :span="4" style="height: 43vh;margin-right: 30px;font-size: 60px;">
       </el-col>
-      <el-col :span="10" style="height: 43vh; margin-right: 18px;">
+      <el-col :span="10" style="height: 50vh; margin-right: 18px;">
         <div id="divPlugin" class="plugin">
         </div>
       </el-col>
-    </el-row>
+    </el-row> -->
   </div>
 </template>
 
@@ -52,7 +68,6 @@ export default {
   mounted() {
     this.getAddressBaseInfo();
     this.initVideo();
-    this.loginVideo('192.168.100.95', '80', 'admin', 'ckkjb208');
   },
   methods: {
     // 获取所有地点的基本信息
@@ -114,7 +129,7 @@ export default {
       }
       // 初始化插件参数及插入插件
       WebVideoCtrl.I_InitPlugin('100%', '100%', {
-        iWndowType: 4
+        iWndowType: 3
       });
       WebVideoCtrl.I_InsertOBJECTPlugin("divPlugin");
       // 检查插件是否最新
@@ -136,31 +151,6 @@ export default {
         }
       });
     },
-    // 登录
-    loginVideo(szIP, szPort, szUsername, szPassword) {
-      var that = this;
-      if ("" === szIP || "" === szPort) {
-          return;
-      }
-      var iRet = WebVideoCtrl.I_Login(szIP, 1, szPort, szUsername, szPassword, {
-        success: function (xmlDoc) {
-          console.log("登陆成功!");
-          that.playVideo(szIP)
-        },
-        error: function () {
-          console.log("登陆失败!");
-        }
-      });
-      if (-1 == iRet) {
-        showOPInfo(szIP + " 已登录过！");
-      }
-    },
-    // 开始预览
-    playVideo(szIp) {
-      var iRet = WebVideoCtrl.I_StartRealPlay(szIp, {
-        iStreamType: 2
-      });
-    }
   },
   components: {
     infoBox,
@@ -171,9 +161,6 @@ export default {
 </script>
 
 <style>
-.map {
-  height: 50vh;
-}
 .el-row {
   margin-bottom: 10px;
 }
@@ -196,5 +183,8 @@ export default {
 .row-bg {
   padding: 10px 0;
   background-color: #f9fafc;
+}
+.plugin {
+  height: 50vh;
 }
 </style>

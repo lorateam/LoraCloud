@@ -292,7 +292,7 @@
   </delete>
   <insert id="insert" parameterType="model.Video">
     insert into video (id, address_id, detail, 
-      url)
+      ip)
     values (#{id,jdbcType=INTEGER}, #{address_id,jdbcType=INTEGER}, #{detail,jdbcType=VARCHAR}, 
       #{url,jdbcType=VARCHAR})
   </insert>
@@ -358,7 +358,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       address_id = #{record.address_id,jdbcType=INTEGER},
       detail = #{record.detail,jdbcType=VARCHAR},
-      url = #{record.url,jdbcType=VARCHAR}
+      ip = #{record.url,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -382,7 +382,7 @@
     update video
     set address_id = #{address_id,jdbcType=INTEGER},
       detail = #{detail,jdbcType=VARCHAR},
-      url = #{url,jdbcType=VARCHAR}
+      ip = #{url,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

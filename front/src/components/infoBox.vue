@@ -1,6 +1,8 @@
 <template>
+  <div class="infoBoxDiv">
     <el-table
         v-bind:data="tableData4"
+        border="2"
         style="width: 100%"
         height="50vh">
         <el-table-column
@@ -32,6 +34,7 @@
           </template>
         </el-table-column>
     </el-table>
+  </div>
 </template>
 
 <script>
@@ -51,4 +54,7 @@ export default{
 </script>
 
 <style scoped>
+.infoBoxDiv {
+  float: left;
+}
 </style>
